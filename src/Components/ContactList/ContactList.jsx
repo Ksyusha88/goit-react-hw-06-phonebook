@@ -2,21 +2,28 @@ import { connect } from 'react-redux';
 import style from '../ContactList/ContactList.module.css';
 import actions from '../../redux/contacts/actions';
 
-const ContactList = ({contacts, onDeleteContact}) => (
-<ul className ={style.contactList}>
-    {contacts.map(({name, id, number}) =>(
-        <li key ={id} className = {style.contactItem}>
-            <p className = {style.contactName}>{name}
-                {': '}
-                {number}
-                </p>
-                <button className ={style.deleteBtm} onClick ={() => onDeleteContact(id)}>Delete</button>
-        </li>
-    )
+const ContactList = ({contacts, onDeleteContact}) => {
+    return (
+        contacts.length > 0 && (
+        <ul className ={style.contactList}>
+            {contacts.map(({name, id, number}) =>(
+                <li key ={id} className = {style.contactItem}>
+                    <p className = {style.contactName}>{name}
+                        {': '}
+                        {number}
+                        </p>
+                        <button 
+                            className ={style.deleteBtm} 
+                            onClick ={() => onDeleteContact(id)}>
+                            Delete
+                        </button>
+                </li>
+            ))}
+        </ul>
+       )
+    );
+  };
 
-    )}
-</ul>
-)
 
 const getVisibleContacts =(allContacts, filter) => {
   const normalizedFilter = filter.toLowerCase();
